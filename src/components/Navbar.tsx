@@ -5,7 +5,7 @@ import { Menu, X, Download, MessageSquare } from 'lucide-react';
 const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Why Hire Me', href: '#why-hire-me' },
-  { label: 'Case Studies', href: '#case-studies' },
+  { label: 'Product Portfolio', href: '#case-studies' },
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Leadership', href: '#leadership' },

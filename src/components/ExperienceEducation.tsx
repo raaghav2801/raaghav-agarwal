@@ -21,7 +21,7 @@ const milestones: Milestone[] = [
     id: 'manipal',
     organization: 'Manipal Institute of Technology',
     role: 'B.Tech, Information Technology',
-    period: '2017 – 2021',
+    period: '2018 – 2022',
     location: 'Manipal, India',
     icon: GraduationCap,
     bullets: [
@@ -36,7 +36,7 @@ const milestones: Milestone[] = [
     id: 'microsoft',
     organization: 'Microsoft',
     role: 'Software Engineer',
-    period: '2021 – 2023',
+    period: '2022 – 2023',
     location: 'Hyderabad, India',
     icon: Building2,
     bullets: [
