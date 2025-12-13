@@ -1,6 +1,10 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { GraduationCap, Building2, Code2, Briefcase } from 'lucide-react';
+
+import manipalLogo from '@/assets/manipal-logo.png';
+import microsoftLogo from '@/assets/microsoft-logo.png';
+import amazonLogo from '@/assets/amazon-logo.png';
+import isbLogo from '@/assets/isb-logo.png';
 
 type ViewMode = 'timeline' | 'list';
 
@@ -10,7 +14,7 @@ interface Milestone {
   role: string;
   period: string;
   location: string;
-  icon: typeof GraduationCap;
+  logo: string;
   bullets: string[];
   tags: string[];
   type: 'education' | 'work';
@@ -23,7 +27,7 @@ const milestones: Milestone[] = [
     role: 'B.Tech, Information Technology',
     period: '2018 – 2022',
     location: 'Manipal, India',
-    icon: GraduationCap,
+    logo: manipalLogo,
     bullets: [
       'Strong foundation in software engineering and system design',
       'Built multiple technical projects and led engineering teams',
@@ -38,7 +42,7 @@ const milestones: Milestone[] = [
     role: 'Software Engineer',
     period: '2022 – 2023',
     location: 'Hyderabad, India',
-    icon: Building2,
+    logo: microsoftLogo,
     bullets: [
       'Architected and shipped AutoDev low-code automation platform',
       'Achieved 100+ users and PMF in 3 months',
@@ -54,7 +58,7 @@ const milestones: Milestone[] = [
     role: 'Software Engineer',
     period: '2023 – 2025',
     location: 'Hyderabad, India',
-    icon: Code2,
+    logo: amazonLogo,
     bullets: [
       'Led microservices migration reducing release failures by 40%',
       'Delivered $50K ARR contracts through structured PoV framework',
@@ -69,7 +73,7 @@ const milestones: Milestone[] = [
     role: 'Post Graduate Programme (PGP)',
     period: '2025 – 2026',
     location: 'Hyderabad, India',
-    icon: Briefcase,
+    logo: isbLogo,
     bullets: [
       'Intended majors: Product Management, Technology',
       'Product case competition: projected +15% retention with voice-to-order',
@@ -98,8 +102,6 @@ const TimelineNode = ({
   onClick: () => void;
   isMobileExpanded: boolean;
 }) => {
-  const Icon = milestone.icon;
-  
   return (
     <div className="relative flex flex-col items-center">
       {/* Node */}
@@ -111,15 +113,19 @@ const TimelineNode = ({
         onMouseLeave={onLeave}
         onClick={onClick}
         className={`
-          relative z-10 w-14 h-14 rounded-full flex items-center justify-center
-          transition-all duration-200 cursor-pointer
+          relative z-10 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center
+          transition-all duration-200 cursor-pointer overflow-hidden p-2
           ${isActive 
-            ? 'bg-gold/20 border-2 border-gold shadow-[0_0_0_6px_rgba(212,175,55,0.12)]' 
-            : 'bg-background border border-gold/30 hover:border-gold/50'
+            ? 'bg-white border-2 border-gold shadow-[0_0_0_6px_rgba(212,175,55,0.12)]' 
+            : 'bg-white border border-gold/30 hover:border-gold/50'
           }
         `}
       >
-        <Icon className={`w-6 h-6 ${isActive ? 'text-gold' : 'text-gold/70'}`} />
+        <img 
+          src={milestone.logo} 
+          alt={milestone.organization} 
+          className="w-full h-full object-contain"
+        />
       </motion.button>
 
       {/* Label below node */}
@@ -227,7 +233,6 @@ const ListView = () => {
   return (
     <div className="space-y-4">
       {milestones.map((milestone, index) => {
-        const Icon = milestone.icon;
         const isExpanded = expandedId === milestone.id;
         
         return (
@@ -247,10 +252,14 @@ const ListView = () => {
               `}>
                 <div className="flex items-start gap-4">
                   <div className={`
-                    w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0
-                    ${isExpanded ? 'bg-gold/20' : 'bg-gold/10'}
+                    w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5 bg-white
+                    ${isExpanded ? 'border-2 border-gold' : 'border border-gold/30'}
                   `}>
-                    <Icon className={`w-6 h-6 ${isExpanded ? 'text-gold' : 'text-gold/70'}`} />
+                    <img 
+                      src={milestone.logo} 
+                      alt={milestone.organization} 
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   
                   <div className="flex-1 min-w-0">
