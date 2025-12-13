@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['Cinzel', 'serif'],
+        heading: ['Gotham', 'Gotham SSm', 'Montserrat', 'Avenir Next', 'Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Arial', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
