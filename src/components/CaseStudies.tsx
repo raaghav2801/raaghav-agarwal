@@ -390,7 +390,7 @@ export const CaseStudies = () => {
           className="text-center mb-12"
         >
           <h2 className="section-heading mb-4">
-            Case <span className="gradient-text">Studies</span>
+            Product <span className="gradient-text">Portfolio</span>
           </h2>
           <p className="section-subheading mx-auto">
             Deep dives into products I've shipped—from discovery to measurable outcomes.
@@ -433,30 +433,20 @@ export const CaseStudies = () => {
           ))}
         </div>
 
-        {/* Mini Case Studies */}
+        {/* Mini Case Studies - displayed inline without header */}
         {filteredMini.length > 0 && (
-          <>
-            <motion.h3
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.5 }}
-              className="text-xl font-semibold text-center mb-6"
-            >
-              Additional Work
-            </motion.h3>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {filteredMini.map((study, index) => (
-                <motion.div
-                  key={study.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                >
-                  <CaseStudyCard study={study} onClick={() => setSelectedStudy(study)} />
-                </motion.div>
-              ))}
-            </div>
-          </>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-8">
+            {filteredMini.map((study, index) => (
+              <motion.div
+                key={study.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+              >
+                <CaseStudyCard study={study} onClick={() => setSelectedStudy(study)} />
+              </motion.div>
+            ))}
+          </div>
         )}
       </div>
 
