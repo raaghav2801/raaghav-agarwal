@@ -7,7 +7,7 @@ const navItems = [
   { label: 'Why Hire Me', href: '#why-hire-me' },
   { label: 'Case Studies', href: '#case-studies' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Credentials', href: '#credentials' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Leadership', href: '#leadership' },
   { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' },

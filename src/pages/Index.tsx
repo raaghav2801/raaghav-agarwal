@@ -4,7 +4,7 @@ import { Hero } from '@/components/Hero';
 import { WhyHireMe } from '@/components/WhyHireMe';
 import { CaseStudies } from '@/components/CaseStudies';
 import { Skills } from '@/components/Skills';
-import { Credentials } from '@/components/Credentials';
+import { ExperienceEducation } from '@/components/ExperienceEducation';
 import { Leadership } from '@/components/Leadership';
 import { Resume } from '@/components/Resume';
 import { Contact } from '@/components/Contact';
@@ -44,7 +44,7 @@ const Index = () => {
           <WhyHireMe />
           <CaseStudies />
           <Skills />
-          <Credentials />
+          <ExperienceEducation />
           <Leadership />
           <Resume />
           <Contact />
