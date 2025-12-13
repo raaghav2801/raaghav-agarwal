@@ -38,33 +38,31 @@ export const Resume = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <a
-                href="[RESUME_PDF_URL]"
+                href="/Raaghav_Agarwal_Resume.pdf"
                 download="Raaghav_Agarwal_Resume.pdf"
                 className="btn-primary"
               >
                 <Download className="w-4 h-4" />
                 Download Resume (PDF)
               </a>
-              <button
-                onClick={() => {
-                  // Placeholder for inline view functionality
-                  alert('Resume viewer will be available here. Please download the PDF for now.');
-                }}
+              <a
+                href="/Raaghav_Agarwal_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-secondary"
               >
                 <Eye className="w-4 h-4" />
                 View Resume Inline
-              </button>
+              </a>
             </div>
 
-            {/* Resume Preview Placeholder */}
-            <div className="aspect-[8.5/11] max-w-md mx-auto bg-secondary/50 rounded-lg border border-border flex items-center justify-center">
-              <div className="text-center p-6">
-                <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground text-sm">
-                  Resume preview will appear here once the PDF is uploaded.
-                </p>
-              </div>
+            {/* Resume Preview */}
+            <div className="aspect-[8.5/11] max-w-md mx-auto bg-secondary/50 rounded-lg border border-border overflow-hidden">
+              <iframe
+                src="/Raaghav_Agarwal_Resume.pdf"
+                title="Raaghav Agarwal Resume"
+                className="w-full h-full"
+              />
             </div>
 
             <div className="mt-8 pt-6 border-t border-border">

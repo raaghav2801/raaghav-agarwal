@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Linkedin, Mail, Github } from 'lucide-react';
 import { CountUp } from './CountUp';
+import raaghavPhoto from '@/assets/raaghav-photo.jpg';
 
 const kpiData = [
   { value: 100, suffix: '+', label: 'Users at PMF', highlight: true },
@@ -86,15 +87,20 @@ export const Hero = () => {
                 View Case Studies
                 <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="#resume" className="btn-secondary">
+              <a href="/Raaghav_Agarwal_Resume.pdf" download className="btn-secondary">
                 <Download className="w-4 h-4" />
                 Download Resume
               </a>
             </motion.div>
 
             <motion.div variants={itemVariants} className="flex items-center gap-4">
+              <img 
+                src={raaghavPhoto} 
+                alt="Raaghav Agarwal" 
+                className="w-12 h-12 rounded-full object-cover border-2 border-primary/30"
+              />
               <a 
-                href="[LINKEDIN_URL]" 
+                href="https://www.linkedin.com/in/raaghavagarwal/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-ghost p-2"
@@ -103,14 +109,14 @@ export const Hero = () => {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a 
-                href="mailto:[EMAIL]" 
+                href="mailto:itraaghav@gmail.com" 
                 className="btn-ghost p-2"
                 aria-label="Email"
               >
                 <Mail className="w-5 h-5" />
               </a>
               <a 
-                href="[GITHUB_OR_WEBSITE_URL]" 
+                href="https://github.com/raaghavagarwal" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-ghost p-2"
