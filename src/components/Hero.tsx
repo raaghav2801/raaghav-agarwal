@@ -84,7 +84,7 @@ export const Hero = () => {
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-8">
               <a href="#case-studies" className="btn-primary">
-                View Case Studies
+                View Product Portfolio
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a href="/Raaghav_Agarwal_Resume.pdf" download className="btn-secondary">
