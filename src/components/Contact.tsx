@@ -19,12 +19,16 @@ export const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+    const mailtoLink = `mailto:itraaghav@gmail.com?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoLink;
 
     toast({
-      title: 'Message sent!',
-      description: "Thanks for reaching out. I'll get back to you soon.",
+      title: 'Opening email client...',
+      description: "Your default email app will open with the message.",
     });
 
     setFormData({ name: '', email: '', message: '' });
@@ -39,10 +43,10 @@ export const Contact = () => {
   };
 
   const socialLinks = [
-    { icon: Linkedin, href: '[LINKEDIN_URL]', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:[EMAIL]', label: 'Email' },
-    { icon: Github, href: '[GITHUB_OR_WEBSITE_URL]', label: 'GitHub' },
-    { icon: Phone, href: 'tel:[PHONE]', label: 'Phone' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/raaghavagarwal/', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:itraaghav@gmail.com', label: 'Email' },
+    { icon: Github, href: 'https://github.com/raaghavagarwal', label: 'GitHub' },
+    { icon: Phone, href: 'tel:+919876543210', label: 'Phone' },
   ];
 
   return (

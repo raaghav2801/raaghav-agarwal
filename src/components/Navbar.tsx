@@ -87,7 +87,7 @@ export const Navbar = () => {
 
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-3">
-              <a href="#resume" onClick={(e) => { e.preventDefault(); handleNavClick('#resume'); }} className="btn-ghost">
+              <a href="/Raaghav_Agarwal_Resume.pdf" download className="btn-ghost">
                 <Download className="w-4 h-4" />
                 Resume
               </a>
@@ -145,7 +145,7 @@ export const Navbar = () => {
                 ))}
               </div>
               <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-border">
-                <a href="#resume" onClick={(e) => { e.preventDefault(); handleNavClick('#resume'); }} className="btn-secondary justify-center">
+                <a href="/Raaghav_Agarwal_Resume.pdf" download className="btn-secondary justify-center">
                   <Download className="w-4 h-4" />
                   Download Resume
                 </a>
