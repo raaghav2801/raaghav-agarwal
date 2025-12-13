@@ -130,52 +130,6 @@ const caseStudies: CaseStudy[] = [
       { label: 'Status', value: 'Ready', icon: CheckCircle2 },
     ],
   },
-  {
-    id: 'microservices',
-    title: 'Microservices Migration',
-    subtitle: 'Monolith to microservices transformation',
-    type: 'mini',
-    tags: ['Platform', 'Technical', 'Scale'],
-    preview: 'Led migration from monolithic architecture to microservices, reducing release failures by 40%.',
-    problem: 'Monolithic architecture caused slow releases, difficult debugging, and cascading failures.',
-    users: 'Development teams and operations managing the platform.',
-    constraints: 'Zero downtime requirement, complex data dependencies, gradual rollout needed.',
-    whatIDid: [
-      'Led migration planning and phased rollout strategy',
-      'Coordinated with multiple engineering teams',
-      'Established monitoring and rollback procedures',
-    ],
-    artifacts: ['Migration Plan', 'Rollout Strategy', 'Monitoring Dashboard'],
-    outcomes: [
-      { label: 'Release Failures', value: '-40%' },
-      { label: 'Deploy Frequency', value: '+3x' },
-    ],
-    nextSteps: ['Continue service decomposition', 'Implement service mesh'],
-    toolkit: ['Technical PM', 'Stakeholder Mgmt', 'Risk Planning'],
-  },
-  {
-    id: 'pov-pilot',
-    title: 'Proof-of-Value Pilot',
-    subtitle: 'Enterprise go-to-market framework',
-    type: 'mini',
-    tags: ['GTM', 'Enterprise', 'Sales'],
-    preview: 'Created 4-week PoV framework that converted prospects into $50K annual contracts.',
-    problem: 'Long sales cycles and unclear value demonstration were slowing enterprise adoption.',
-    users: 'Enterprise prospects evaluating the platform.',
-    constraints: 'Need for quick wins, limited implementation resources, executive-level stakeholders.',
-    whatIDid: [
-      'Designed 4-week structured PoV framework',
-      'Created success criteria and milestone checkpoints',
-      'Built reusable templates for implementation teams',
-    ],
-    artifacts: ['PoV Framework', 'Success Criteria Template', 'Milestone Tracker'],
-    outcomes: [
-      { label: 'Contract Value', value: '$50K ARR' },
-      { label: 'Cycle Time', value: '4 weeks' },
-    ],
-    nextSteps: ['Scale framework to other product lines', 'Add automated reporting'],
-    toolkit: ['GTM Strategy', 'Enterprise Sales', 'Framework Design'],
-  },
 ];
 
 const CaseStudyCard = ({ study, onClick }: { study: CaseStudy; onClick: () => void }) => {
