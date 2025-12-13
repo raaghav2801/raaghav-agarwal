@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Cinzel', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
@@ -50,6 +51,11 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        gold: {
+          DEFAULT: "hsl(var(--gold-primary))",
+          highlight: "hsl(var(--gold-highlight))",
+          deep: "hsl(var(--gold-deep))",
         },
       },
       borderRadius: {
