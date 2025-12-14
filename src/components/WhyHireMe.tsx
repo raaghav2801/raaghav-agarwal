@@ -1,36 +1,26 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Search, Rocket, TrendingUp, Users, Zap, Target } from 'lucide-react';
-import { CountUp } from './CountUp';
+import { Search, FileText, Rocket } from 'lucide-react';
 
 const pillars = [
   {
     icon: Search,
-    title: 'Product Strategy & Discovery',
-    description: 'From market research and competitor analysis to MVP definition and prioritization frameworks like MoSCoW.',
-    metrics: ['Competitive analysis', 'User research', 'PRD authorship', 'Prioritization'],
+    title: 'Discover the Signal',
+    description: 'I ground decisions in user pain, market context, and data—so we solve the right problem before we build.',
+    metrics: ['Customer interviews', 'Market mapping', 'Data analysis', 'Problem framing'],
+  },
+  {
+    icon: FileText,
+    title: 'Define the Strategy',
+    description: 'I translate insight into a clear plan: crisp PRDs, success metrics, and trade-offs that teams can execute against.',
+    metrics: ['PRD authorship', 'Success metrics', 'MoSCoW prioritization', 'Stakeholder alignment'],
   },
   {
     icon: Rocket,
-    title: 'Execution & Delivery',
-    description: 'Building roadmaps, running A/B tests, conducting usability studies, and shipping on aggressive timelines.',
-    metrics: ['Roadmap ownership', 'A/B testing', 'Usability testing', 'Agile delivery'],
+    title: 'Ship and Scale Outcomes',
+    description: 'I ship iteratively, validate with experiments, and scale what works—optimizing for adoption, reliability, and measurable impact.',
+    metrics: ['A/B testing', 'Usability testing', 'Enterprise PoV', 'Cross-team roadmap'],
   },
-  {
-    icon: TrendingUp,
-    title: 'Scaling & Stakeholders',
-    description: 'Driving enterprise pilots, aligning multi-team roadmaps, and delivering measurable NPS outcomes.',
-    metrics: ['Enterprise PoV', 'Cross-team alignment', 'NPS improvement', 'Adoption'],
-  },
-];
-
-const proofMetrics = [
-  { icon: Users, value: 100, suffix: '+', label: 'AutoDev users / PMF' },
-  { icon: Zap, value: 3, suffix: ' mo', label: 'MVP to launch' },
-  { icon: TrendingUp, value: 8, suffix: '%', label: 'Revenue growth' },
-  { icon: Target, value: 15, suffix: '%', label: 'Client savings' },
-  { icon: Rocket, value: 7, suffix: '/10', label: 'CES (from 4/10)' },
-  { icon: Zap, value: 40, suffix: '%', label: 'Fewer release failures' },
 ];
 
 export const WhyHireMe = () => {
@@ -48,15 +38,15 @@ export const WhyHireMe = () => {
           className="text-center mb-16"
         >
           <h2 className="section-heading mb-4">
-            Why Hire <span className="gradient-text">Raaghav</span>?
+            How I <span className="gradient-text">Build Products</span>
           </h2>
           <p className="section-subheading mx-auto">
-            A rare blend of engineering depth and product instincts, with a track record of shipping products that move metrics.
+            A concise view of the playbook I use to move metrics—across discovery, delivery, and scale.
           </p>
         </motion.div>
 
         {/* Three Pillars */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-3 gap-6">
           {pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
@@ -68,7 +58,7 @@ export const WhyHireMe = () => {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                 <pillar.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 gradient-text">{pillar.title}</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">{pillar.description}</p>
               <div className="flex flex-wrap gap-2">
                 {pillar.metrics.map((metric) => (
