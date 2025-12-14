@@ -81,38 +81,6 @@ export const WhyHireMe = () => {
           ))}
         </div>
 
-        {/* Proof Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="glass-card-elevated p-6 md:p-8 rounded-2xl"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-2 h-2 rounded-full bg-accent" />
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Quantified Impact
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {proofMetrics.map((metric, index) => (
-              <motion.div
-                key={metric.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.4, delay: 0.4 + index * 0.05 }}
-                className="text-center p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
-              >
-                <metric.icon className="w-5 h-5 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold gradient-text">
-                  <CountUp end={metric.value} suffix={metric.suffix} />
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">{metric.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
