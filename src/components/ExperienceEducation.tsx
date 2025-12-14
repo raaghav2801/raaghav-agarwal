@@ -145,7 +145,7 @@ const DesktopTimelineNode = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-24 left-1/2 -translate-x-1/2 w-80 z-50"
+            className="absolute top-24 left-1/2 -translate-x-1/2 w-80 z-50"
           >
             <div className="bg-[#0F0F12]/95 backdrop-blur-md border border-gold/20 rounded-xl p-5 shadow-2xl">
               <h4 className="text-gold font-heading font-semibold text-lg">
