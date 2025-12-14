@@ -18,6 +18,7 @@ interface CaseStudy {
   nextSteps: string[];
   toolkit: string[];
   metrics?: { label: string; value: string; icon: React.ElementType }[];
+  externalLink?: string | null; // null = internal/confidential, undefined = no link shown
 }
 
 const caseStudies: CaseStudy[] = [
@@ -59,6 +60,7 @@ const caseStudies: CaseStudy[] = [
       { label: 'Revenue', value: '+8%', icon: TrendingUp },
       { label: 'CES', value: '7/10', icon: Target },
     ],
+    externalLink: null, // Internal/confidential
   },
   {
     id: 'campuseats',
@@ -94,6 +96,7 @@ const caseStudies: CaseStudy[] = [
       { label: 'Orders/Day', value: '180+', icon: Zap },
       { label: 'Efficiency', value: '+60%', icon: Clock },
     ],
+    externalLink: 'https://isbeats.lovable.app/',
   },
   {
     id: 'ai-negotiator',
@@ -129,20 +132,37 @@ const caseStudies: CaseStudy[] = [
       { label: 'AI Features', value: '5', icon: Brain },
       { label: 'Status', value: 'Ready', icon: CheckCircle2 },
     ],
+    externalLink: 'https://ai-negotiatior-rvd.lovable.app',
   },
 ];
 
 const CaseStudyCard = ({ study, onClick }: { study: CaseStudy; onClick: () => void }) => {
   const isFlashship = study.type === 'flagship';
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
+  const handleLinkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      className={`glass-card cursor-pointer group overflow-hidden ${
+      whileHover={{ y: -4, boxShadow: '0 0 20px rgba(212, 175, 55, 0.15)' }}
+      className={`glass-card cursor-pointer group overflow-hidden relative ${
         isFlashship ? 'p-6 md:p-8' : 'p-5'
-      }`}
+      } focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background`}
       onClick={onClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`Open case study: ${study.title}`}
     >
+      {/* Tags and Arrow */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex flex-wrap gap-2">
           {study.tags.map((tag) => (
@@ -151,11 +171,35 @@ const CaseStudyCard = ({ study, onClick }: { study: CaseStudy; onClick: () => vo
             </span>
           ))}
         </div>
-        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+        <div className="flex items-center gap-1 text-muted-foreground group-hover:text-primary transition-all">
+          <span className="text-xs hidden md:inline opacity-0 group-hover:opacity-100 transition-opacity">Open</span>
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </div>
       </div>
 
       <h3 className={`font-bold mb-2 ${isFlashship ? 'text-2xl' : 'text-xl'}`}>{study.title}</h3>
-      <p className="text-sm text-muted-foreground mb-4">{study.subtitle}</p>
+      <p className="text-sm text-muted-foreground mb-2">{study.subtitle}</p>
+
+      {/* External Link Row */}
+      {study.externalLink !== undefined && (
+        <div className="flex items-center gap-2 mb-4">
+          <ExternalLink className="w-3.5 h-3.5 text-primary/70" />
+          {study.externalLink === null ? (
+            <span className="text-xs text-muted-foreground italic">Internal (confidential)</span>
+          ) : (
+            <a
+              href={study.externalLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLinkClick}
+              className="text-xs text-primary/80 hover:text-primary underline underline-offset-2 transition-colors"
+            >
+              View Live Project
+            </a>
+          )}
+        </div>
+      )}
+
       <p className="text-muted-foreground leading-relaxed mb-6">{study.preview}</p>
 
       {isFlashship && study.metrics && (
@@ -169,6 +213,13 @@ const CaseStudyCard = ({ study, onClick }: { study: CaseStudy; onClick: () => vo
           ))}
         </div>
       )}
+
+      {/* Click to open indicator */}
+      <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-center gap-2 text-xs text-muted-foreground md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+        <span className="hidden md:inline">Click to open case study</span>
+        <span className="md:hidden">Tap to open</span>
+        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+      </div>
     </motion.div>
   );
 };
