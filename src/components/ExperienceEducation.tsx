@@ -85,22 +85,19 @@ const milestones: Milestone[] = [
   },
 ];
 
-const TimelineNode = ({ 
+// Desktop Timeline Node
+const DesktopTimelineNode = ({ 
   milestone, 
   index, 
   isActive, 
   onHover, 
   onLeave,
-  onClick,
-  isMobileExpanded 
 }: { 
   milestone: Milestone; 
   index: number; 
   isActive: boolean;
   onHover: () => void;
   onLeave: () => void;
-  onClick: () => void;
-  isMobileExpanded: boolean;
 }) => {
   return (
     <div className="relative flex flex-col items-center">
@@ -111,9 +108,8 @@ const TimelineNode = ({
         transition={{ delay: index * 0.1, duration: 0.3 }}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
-        onClick={onClick}
         className={`
-          relative z-10 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center
+          relative z-10 w-20 h-20 rounded-full flex items-center justify-center
           transition-all duration-200 cursor-pointer overflow-hidden p-2
           ${isActive 
             ? 'bg-white border-2 border-gold shadow-[0_0_0_6px_rgba(212,175,55,0.12)]' 
@@ -149,7 +145,7 @@ const TimelineNode = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="hidden md:block absolute top-full mt-24 left-1/2 -translate-x-1/2 w-80 z-50"
+            className="absolute top-full mt-24 left-1/2 -translate-x-1/2 w-80 z-50"
           >
             <div className="bg-[#0F0F12]/95 backdrop-blur-md border border-gold/20 rounded-xl p-5 shadow-2xl">
               <h4 className="text-gold font-heading font-semibold text-lg">
@@ -183,24 +179,78 @@ const TimelineNode = ({
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+};
 
-      {/* Mobile Accordion */}
+// Mobile Timeline Node - Horizontal row layout
+const MobileTimelineNode = ({ 
+  milestone, 
+  index, 
+  isExpanded,
+  onClick,
+}: { 
+  milestone: Milestone; 
+  index: number; 
+  isExpanded: boolean;
+  onClick: () => void;
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.3 }}
+      className="relative"
+    >
+      {/* Main row: grid layout with icon left, content right */}
+      <button
+        onClick={onClick}
+        className="w-full grid items-center gap-4"
+        style={{ gridTemplateColumns: '52px 1fr' }}
+      >
+        {/* Icon container - centered on timeline rail */}
+        <div className={`
+          w-[52px] h-[52px] rounded-full flex items-center justify-center
+          transition-all duration-200 overflow-hidden p-1.5 bg-white
+          ${isExpanded 
+            ? 'border-2 border-gold shadow-[0_0_0_6px_rgba(212,175,55,0.12)]' 
+            : 'border border-gold/30'
+          }
+        `}>
+          <img 
+            src={milestone.logo} 
+            alt={milestone.organization} 
+            className="w-full h-full object-contain"
+          />
+        </div>
+
+        {/* Text block */}
+        <div className="text-left">
+          <p className="text-xs font-medium text-gold/80">{milestone.period}</p>
+          <p className="text-sm font-semibold text-foreground mt-0.5 leading-tight">
+            {milestone.organization}
+          </p>
+          <p className="text-xs text-muted-foreground mt-0.5">{milestone.role}</p>
+        </div>
+      </button>
+
+      {/* Expanded details */}
       <AnimatePresence>
-        {isMobileExpanded && (
+        {isExpanded && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden w-full mt-4 overflow-hidden"
+            className="overflow-hidden"
+            style={{ marginLeft: '68px' }}
           >
-            <div className="bg-[#0F0F12]/95 border border-gold/20 rounded-xl p-4">
-              <p className="text-foreground font-medium">{milestone.role}</p>
-              <p className="text-muted-foreground text-sm mt-0.5">
+            <div className="pt-3 pb-2">
+              <p className="text-xs text-muted-foreground mb-2">
                 {milestone.location}
               </p>
               
-              <ul className="mt-3 space-y-2">
+              <ul className="space-y-2">
                 {milestone.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
@@ -223,7 +273,7 @@ const TimelineNode = ({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
 
@@ -379,44 +429,38 @@ export const ExperienceEducation = () => {
             {/* Desktop Horizontal Timeline */}
             <div className="hidden md:block relative">
               {/* Timeline Line */}
-              <div className="absolute top-7 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+              <div className="absolute top-10 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
               
               <div className="flex justify-between items-start max-w-5xl mx-auto">
                 {milestones.map((milestone, index) => (
-                  <TimelineNode
+                  <DesktopTimelineNode
                     key={milestone.id}
                     milestone={milestone}
                     index={index}
                     isActive={activeNode === milestone.id}
                     onHover={() => setActiveNode(milestone.id)}
                     onLeave={() => setActiveNode(null)}
-                    onClick={() => {}}
-                    isMobileExpanded={false}
                   />
                 ))}
               </div>
             </div>
 
             {/* Mobile Vertical Timeline */}
-            <div className="md:hidden relative">
-              {/* Timeline Line */}
-              <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold/25 via-gold/25 to-transparent" />
+            <div className="md:hidden relative pl-1">
+              {/* Timeline Line - passes through center of icons */}
+              <div className="absolute left-[27px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold/25 via-gold/25 to-transparent" />
               
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {milestones.map((milestone, index) => (
-                  <div key={milestone.id} className="flex gap-6">
-                    <TimelineNode
-                      milestone={milestone}
-                      index={index}
-                      isActive={false}
-                      onHover={() => {}}
-                      onLeave={() => {}}
-                      onClick={() => setMobileExpandedNode(
-                        mobileExpandedNode === milestone.id ? null : milestone.id
-                      )}
-                      isMobileExpanded={mobileExpandedNode === milestone.id}
-                    />
-                  </div>
+                  <MobileTimelineNode
+                    key={milestone.id}
+                    milestone={milestone}
+                    index={index}
+                    isExpanded={mobileExpandedNode === milestone.id}
+                    onClick={() => setMobileExpandedNode(
+                      mobileExpandedNode === milestone.id ? null : milestone.id
+                    )}
+                  />
                 ))}
               </div>
             </div>
