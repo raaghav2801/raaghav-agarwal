@@ -2,7 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Send, Linkedin, Mail, Github, Phone, MapPin, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-
+import { supabase } from '@/integrations/supabase/client';
 export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -19,20 +19,33 @@ export const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    const mailtoLink = `mailto:itraaghav@gmail.com?subject=${subject}&body=${body}`;
-    
-    window.location.href = mailtoLink;
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+      });
 
-    toast({
-      title: 'Opening email client...',
-      description: "Your default email app will open with the message.",
-    });
+      if (error) throw error;
 
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+      toast({
+        title: 'Message sent!',
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      toast({
+        title: 'Failed to send message',
+        description: error.message || 'Please try again or email me directly.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
