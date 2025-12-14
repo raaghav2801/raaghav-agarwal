@@ -55,7 +55,7 @@ const milestones: Milestone[] = [
   {
     id: 'amazon',
     organization: 'Amazon',
-    role: 'Software Engineer',
+    role: 'Senior Software Engineer',
     period: '2023 – 2025',
     location: 'Hyderabad, India',
     logo: amazonLogo,
