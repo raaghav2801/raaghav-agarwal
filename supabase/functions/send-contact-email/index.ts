@@ -50,7 +50,16 @@ interface ContactEmailRequest {
   name: string;
   email: string;
   message: string;
+  website?: string; // Honeypot field - should be empty
+  timestamp?: number; // Time-based anti-bot check
 }
+
+// Validation constants
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254; // RFC 5321
+const MAX_MESSAGE_LENGTH = 5000;
+const MIN_MESSAGE_LENGTH = 10;
+const MIN_SUBMISSION_TIME_MS = 3000; // Minimum 3 seconds to fill form (bots are faster)
 
 // HTML escape function to prevent XSS in email content
 function escapeHtml(unsafe: string): string {
@@ -104,15 +113,97 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const { name, email, message }: ContactEmailRequest = await req.json();
+    const { name, email, message, website, timestamp }: ContactEmailRequest = await req.json();
 
-    console.log("Received contact form submission:", { name, email, messageLength: message.length });
+    console.log("Received contact form submission:", { name, email, messageLength: message?.length || 0 });
 
-    // Validate input
+    // Honeypot check - if "website" field is filled, it's likely a bot
+    if (website && website.trim().length > 0) {
+      console.warn("Honeypot triggered - likely bot submission");
+      // Return success to not alert the bot, but don't send email
+      return new Response(
+        JSON.stringify({ success: true, message: "Email sent successfully" }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Time-based anti-bot check - form should take at least 3 seconds to fill
+    if (timestamp) {
+      const submissionTime = Date.now() - timestamp;
+      if (submissionTime < MIN_SUBMISSION_TIME_MS) {
+        console.warn("Form submitted too quickly - likely bot:", submissionTime, "ms");
+        return new Response(
+          JSON.stringify({ success: true, message: "Email sent successfully" }),
+          {
+            status: 200,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
+    }
+
+    // Validate required fields
     if (!name || !email || !message) {
       console.error("Missing required fields");
       return new Response(
         JSON.stringify({ error: "Name, email, and message are required" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Validate lengths
+    if (name.length > MAX_NAME_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Name must be less than ${MAX_NAME_LENGTH} characters` }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (email.length > MAX_EMAIL_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: "Email address is too long" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Message must be less than ${MAX_MESSAGE_LENGTH} characters` }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (message.trim().length < MIN_MESSAGE_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: "Message is too short" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Check for excessive URLs (spam indicator)
+    const urlCount = (message.match(/https?:\/\//gi) || []).length;
+    if (urlCount > 5) {
+      console.warn("Message contains too many URLs - potential spam");
+      return new Response(
+        JSON.stringify({ error: "Message contains too many links" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json", ...corsHeaders },

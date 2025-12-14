@@ -12,12 +12,41 @@ export const Contact = () => {
     name: "",
     email: "",
     message: "",
+    website: "", // Honeypot field - hidden from users
   });
+  const [formStartTime] = useState(Date.now()); // Track when form was loaded
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Validation constants matching backend
+  const MAX_NAME_LENGTH = 100;
+  const MAX_EMAIL_LENGTH = 254;
+  const MAX_MESSAGE_LENGTH = 5000;
+  const MIN_MESSAGE_LENGTH = 10;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Client-side validation
+    if (formData.name.length > MAX_NAME_LENGTH) {
+      toast({
+        title: "Name too long",
+        description: `Name must be less than ${MAX_NAME_LENGTH} characters.`,
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (formData.message.trim().length < MIN_MESSAGE_LENGTH) {
+      toast({
+        title: "Message too short",
+        description: "Please write a longer message.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const { data, error } = await supabase.functions.invoke("send-contact-email", {
@@ -25,6 +54,8 @@ export const Contact = () => {
           name: formData.name,
           email: formData.email,
           message: formData.message,
+          website: formData.website, // Honeypot
+          timestamp: formStartTime, // Anti-bot timing
         },
       });
 
@@ -35,9 +66,8 @@ export const Contact = () => {
         description: "Thanks for reaching out. I'll get back to you soon.",
       });
 
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", message: "", website: "" });
     } catch (error: any) {
-      console.error("Error sending message:", error);
       toast({
         title: "Failed to send message",
         description: error.message || "Please try again or email me directly.",
@@ -88,6 +118,18 @@ export const Contact = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <form onSubmit={handleSubmit} className="glass-card p-6 md:p-8 space-y-6">
+              {/* Honeypot field - hidden from users, bots will fill it */}
+              <div className="absolute opacity-0 pointer-events-none" aria-hidden="true">
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Name
@@ -99,6 +141,7 @@ export const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  maxLength={MAX_NAME_LENGTH}
                   className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                   placeholder="Your name"
                 />
@@ -115,6 +158,7 @@ export const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  maxLength={MAX_EMAIL_LENGTH}
                   className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                   placeholder="your@email.com"
                 />
@@ -131,9 +175,13 @@ export const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={5}
+                  maxLength={MAX_MESSAGE_LENGTH}
                   className="w-full px-4 py-3 rounded-lg bg-secondary border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
                   placeholder="Tell me about your product challenge..."
                 />
+                <div className="text-xs text-muted-foreground mt-1 text-right">
+                  {formData.message.length}/{MAX_MESSAGE_LENGTH}
+                </div>
               </div>
 
               <button
