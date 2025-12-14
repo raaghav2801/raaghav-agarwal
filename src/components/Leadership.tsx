@@ -85,7 +85,7 @@ export const Leadership = () => {
           <h3 className="text-xl font-semibold text-center mb-8">How I Run Product</h3>
           
           <div className="grid md:grid-cols-4 gap-4 relative">
-            {/* Connection line */}
+            {/* Connection line - desktop only */}
             <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-primary via-primary to-primary/50" />
             
             {operatingRhythm.map((phase, index) => (
@@ -96,15 +96,21 @@ export const Leadership = () => {
                 transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                 className="relative"
               >
-                {/* Phase number */}
-                <div className="flex justify-center mb-4">
+                {/* Phase number - desktop: centered above card */}
+                <div className="hidden md:flex justify-center mb-4">
                   <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm relative z-10">
                     {index + 1}
                   </div>
                 </div>
 
-                <div className="glass-card p-6 h-full">
-                  <div className="flex items-center gap-2 mb-3">
+                {/* Card with step number badge inside for mobile */}
+                <div className="glass-card p-6 h-full relative">
+                  {/* Mobile: Step number badge in top-right corner */}
+                  <div className="md:hidden absolute top-3 right-3 w-7 h-7 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-xs">
+                    {index + 1}
+                  </div>
+                  
+                  <div className="flex items-center gap-2 mb-3 pr-8 md:pr-0">
                     <phase.icon className="w-5 h-5 text-primary" />
                     <h4 className="font-semibold">{phase.phase}</h4>
                   </div>
