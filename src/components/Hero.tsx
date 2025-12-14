@@ -1,16 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Linkedin, Mail, Github } from 'lucide-react';
-import { CountUp } from './CountUp';
 import raaghavPhoto from '@/assets/raaghav-photo.jpg';
-
-const kpiData = [
-  { value: 100, suffix: '+', label: 'Users at PMF', highlight: true },
-  { value: 8, suffix: '%', label: 'Revenue Growth' },
-  { value: 3, suffix: ' mo', label: 'MVP to Launch' },
-  { value: 84, suffix: '%', label: 'NPS Score' },
-  { value: 40, suffix: '%', label: 'Fewer Failures' },
-  { value: 15, suffix: 'K+', label: 'Hours Saved' },
-];
+import raaghavHero from '@/assets/raaghav-hero.png';
 
 export const Hero = () => {
   const containerVariants = {
@@ -65,12 +56,7 @@ export const Hero = () => {
             animate="visible"
             className="max-w-xl"
           >
-            <motion.div variants={itemVariants} className="flex items-center gap-2 mb-6">
-              <span className="kpi-chip">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                Open to opportunities
-              </span>
-            </motion.div>
+            <motion.div variants={itemVariants} className="flex items-center gap-2 mb-6" />
 
             <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
               I turn ambiguity into{' '}
@@ -127,42 +113,18 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: KPI Card Stack */}
+          {/* Right: Hero Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative"
+            className="relative flex justify-center lg:justify-end"
           >
-            <div className="glass-card-elevated p-6 md:p-8 rounded-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                  Product Impact Snapshot
-                </h3>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {kpiData.map((kpi, index) => (
-                  <motion.div
-                    key={kpi.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                    className={`metric-card ${kpi.highlight ? 'ring-1 ring-primary/30' : ''}`}
-                  >
-                    <span className="metric-value">
-                      <CountUp end={kpi.value} suffix={kpi.suffix} duration={2000} />
-                    </span>
-                    <span className="metric-label">{kpi.label}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-accent/10 rounded-full blur-2xl" />
-            </div>
+            <img 
+              src={raaghavHero} 
+              alt="Raaghav Agarwal" 
+              className="max-h-[600px] w-auto object-contain"
+            />
           </motion.div>
         </div>
       </div>
