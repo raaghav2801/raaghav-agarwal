@@ -1,17 +1,17 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Send, Linkedin, Mail, Github, Phone, MapPin, Clock } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { Send, Linkedin, Mail, Github, Phone, MapPin, Clock } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 export const Contact = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,7 +20,7 @@ export const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
         body: {
           name: formData.name,
           email: formData.email,
@@ -31,17 +31,17 @@ export const Contact = () => {
       if (error) throw error;
 
       toast({
-        title: 'Message sent!',
+        title: "Message sent!",
         description: "Thanks for reaching out. I'll get back to you soon.",
       });
 
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: "", email: "", message: "" });
     } catch (error: any) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
       toast({
-        title: 'Failed to send message',
-        description: error.message || 'Please try again or email me directly.',
-        variant: 'destructive',
+        title: "Failed to send message",
+        description: error.message || "Please try again or email me directly.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -56,10 +56,10 @@ export const Contact = () => {
   };
 
   const socialLinks = [
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/raaghavagarwal/', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:itraaghav@gmail.com', label: 'Email' },
-    { icon: Github, href: 'https://github.com/raaghavagarwal', label: 'GitHub' },
-    { icon: Phone, href: 'tel:+919876543210', label: 'Phone' },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/raaghavagarwal/", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:itraaghav@gmail.com", label: "Email" },
+    { icon: Github, href: "https://github.com/raaghav2801", label: "GitHub" },
+    { icon: Phone, href: "tel:+919876543210", label: "Phone" },
   ];
 
   return (
@@ -196,8 +196,8 @@ export const Contact = () => {
                   <a
                     key={link.label}
                     href={link.href}
-                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors group"
                   >
                     <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
