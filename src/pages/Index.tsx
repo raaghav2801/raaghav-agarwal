@@ -3,9 +3,7 @@ import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { WhyHireMe } from '@/components/WhyHireMe';
 import { CaseStudies } from '@/components/CaseStudies';
-import { Skills } from '@/components/Skills';
 import { ExperienceEducation } from '@/components/ExperienceEducation';
-import { Leadership } from '@/components/Leadership';
 import { Resume } from '@/components/Resume';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
@@ -43,9 +41,7 @@ const Index = () => {
           <Hero />
           <WhyHireMe />
           <CaseStudies />
-          <Skills />
           <ExperienceEducation />
-          <Leadership />
           <Resume />
           <Contact />
         </main>
