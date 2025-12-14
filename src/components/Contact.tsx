@@ -59,7 +59,7 @@ export const Contact = () => {
     { icon: Linkedin, href: "https://www.linkedin.com/in/raaghavagarwal/", label: "LinkedIn" },
     { icon: Mail, href: "mailto:itraaghav@gmail.com", label: "Email" },
     { icon: Github, href: "https://github.com/raaghav2801", label: "GitHub" },
-    { icon: Phone, href: "tel:+919876543210", label: "Phone" },
+    { icon: Phone, href: "tel:+917023993824", label: "Phone" },
   ];
 
   return (
