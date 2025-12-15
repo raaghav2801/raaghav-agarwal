@@ -420,7 +420,7 @@ export const ExperienceEducation = () => {
                   transition={{ duration: 0.15 }}
                   className="hidden md:block fixed z-[100] pointer-events-none w-[360px]"
                   style={{
-                    left: mousePos.x + 20,
+                    left: activeNode === 'isb' ? mousePos.x - 380 : mousePos.x + 20,
                     top: mousePos.y - 20,
                     transform: 'translateY(-50%)',
                   }}
