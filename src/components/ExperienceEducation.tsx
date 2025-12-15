@@ -95,7 +95,7 @@ const DesktopTimelineNode = ({
   milestone: Milestone; 
   index: number; 
   isActive: boolean;
-  onHover: () => void;
+  onHover: (e: React.MouseEvent) => void;
   onLeave: () => void;
 }) => {
   return (
@@ -107,6 +107,7 @@ const DesktopTimelineNode = ({
         transition={{ delay: index * 0.1, duration: 0.3 }}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
+        onMouseMove={onHover}
         className={`
           relative z-10 w-20 h-20 rounded-full flex items-center justify-center
           transition-all duration-200 cursor-pointer overflow-hidden p-2
@@ -135,49 +136,6 @@ const DesktopTimelineNode = ({
           {milestone.organization}
         </p>
       </motion.div>
-
-      {/* Desktop Hover Panel - positioned above the node */}
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-[340px] z-50"
-          >
-            <div className="bg-[#0F0F12]/98 backdrop-blur-md border border-gold/20 rounded-xl p-5 shadow-2xl">
-              <h4 className="text-gold font-heading font-semibold text-lg">
-                {milestone.organization}
-              </h4>
-              <p className="text-foreground font-medium mt-1">{milestone.role}</p>
-              <p className="text-muted-foreground text-sm mt-0.5">
-                {milestone.period} • {milestone.location}
-              </p>
-              
-              <ul className="mt-3 space-y-1.5">
-                {milestone.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground leading-snug">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-              
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {milestone.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-0.5 text-xs font-medium text-gold border border-gold/30 rounded-full bg-gold/5"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
@@ -373,6 +331,14 @@ export const ExperienceEducation = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('timeline');
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [mobileExpandedNode, setMobileExpandedNode] = useState<string | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const activeMilestone = milestones.find(m => m.id === activeNode);
+
+  const handleMouseMove = (milestoneId: string) => (e: React.MouseEvent) => {
+    setActiveNode(milestoneId);
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
 
   return (
     <section id="experience" className="py-24 md:py-32 bg-secondary/20" ref={ref}>
@@ -437,12 +403,60 @@ export const ExperienceEducation = () => {
                     milestone={milestone}
                     index={index}
                     isActive={activeNode === milestone.id}
-                    onHover={() => setActiveNode(milestone.id)}
+                    onHover={handleMouseMove(milestone.id)}
                     onLeave={() => setActiveNode(null)}
                   />
                 ))}
               </div>
             </div>
+
+            {/* Floating Hover Panel - follows cursor */}
+            <AnimatePresence>
+              {activeNode && activeMilestone && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  className="hidden md:block fixed z-[100] pointer-events-none w-[360px]"
+                  style={{
+                    left: mousePos.x + 20,
+                    top: mousePos.y - 20,
+                    transform: 'translateY(-50%)',
+                  }}
+                >
+                  <div className="bg-[#0F0F12] border border-gold/25 rounded-xl p-5 shadow-2xl">
+                    <h4 className="text-gold font-heading font-semibold text-lg">
+                      {activeMilestone.organization}
+                    </h4>
+                    <p className="text-foreground font-medium mt-1">{activeMilestone.role}</p>
+                    <p className="text-muted-foreground text-sm mt-0.5">
+                      {activeMilestone.period} • {activeMilestone.location}
+                    </p>
+                    
+                    <ul className="mt-3 space-y-1.5">
+                      {activeMilestone.bullets.map((bullet, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground leading-snug">
+                          <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {activeMilestone.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-0.5 text-xs font-medium text-gold border border-gold/30 rounded-full bg-gold/5"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Mobile Vertical Timeline */}
             <div className="md:hidden relative pl-1">
