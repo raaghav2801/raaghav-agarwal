@@ -317,37 +317,6 @@ const CaseStudyModal = ({ study, onClose }: { study: CaseStudy; onClose: () => v
             </ul>
           </div>
 
-          {/* Artifacts */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-primary" />
-              Artifacts
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {study.artifacts.map((artifact) => (
-                <span key={artifact} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-sm">
-                  <ExternalLink className="w-3 h-3" />
-                  {artifact}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* What I'd Do Next */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-primary" />
-              What I'd Do Next
-            </h3>
-            <ul className="space-y-2">
-              {study.nextSteps.map((step, index) => (
-                <li key={index} className="flex items-start gap-3 text-muted-foreground">
-                  <ArrowRight className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                  {step}
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* PM Toolkit */}
           <div>
