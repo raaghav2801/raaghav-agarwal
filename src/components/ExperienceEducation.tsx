@@ -44,12 +44,11 @@ const milestones: Milestone[] = [
     location: 'Hyderabad, India',
     logo: microsoftLogo,
     bullets: [
-      'Architected and shipped AutoDev low-code automation platform',
-      'Achieved 100+ users and PMF in 3 months',
-      'Improved CES from 4/10 to 7/10 through UX iterations',
-      'Reduced build time from 4 weeks to 2 weeks',
+      'Built RCA automation workflows to accelerate incident triage and reduce repeat failures.',
+      'Delivered deprovisioning automations that reduced monthly infrastructure waste (~$50K/month COGS savings).',
+      'Strengthened reliability with unit + functional testing, and shipped edge-case handling features to improve stability.',
     ],
-    tags: ['0→1', 'Platform', 'Automation', 'Low-Code'],
+    tags: ['Reliability', 'Cost Optimization', 'RCA Automation', 'Testing'],
     type: 'work',
   },
   {
@@ -60,11 +59,11 @@ const milestones: Milestone[] = [
     location: 'Hyderabad, India',
     logo: amazonLogo,
     bullets: [
-      'Led microservices migration reducing release failures by 40%',
-      'Delivered $50K ARR contracts through structured PoV framework',
-      'Drove 8% revenue growth and 15% client savings',
+      'Contributed to AutoDev at a high level—helped shape and ship a low-code automation capability for internal teams (confidential details withheld).',
+      'Designed and developed 17 automations that improved operational efficiency and reduced manual effort.',
+      'Led a structured PoV approach that supported conversion of $50K annual contracts.',
     ],
-    tags: ['Microservices', 'PoV Framework', 'Stakeholder Mgmt'],
+    tags: ['0→1', 'Automation', 'Low-Code', 'Platform', 'Enterprise PoV'],
     type: 'work',
   },
   {
