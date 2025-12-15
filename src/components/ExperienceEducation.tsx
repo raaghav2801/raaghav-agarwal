@@ -136,7 +136,7 @@ const DesktopTimelineNode = ({
         </p>
       </motion.div>
 
-      {/* Desktop Hover Panel */}
+      {/* Desktop Hover Panel - positioned above the node */}
       <AnimatePresence>
         {isActive && (
           <motion.div
@@ -144,9 +144,9 @@ const DesktopTimelineNode = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-24 left-1/2 -translate-x-1/2 w-80 z-50"
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-[340px] z-50"
           >
-            <div className="bg-[#0F0F12]/95 backdrop-blur-md border border-gold/20 rounded-xl p-5 shadow-2xl">
+            <div className="bg-[#0F0F12]/98 backdrop-blur-md border border-gold/20 rounded-xl p-5 shadow-2xl">
               <h4 className="text-gold font-heading font-semibold text-lg">
                 {milestone.organization}
               </h4>
@@ -155,20 +155,20 @@ const DesktopTimelineNode = ({
                 {milestone.period} • {milestone.location}
               </p>
               
-              <ul className="mt-4 space-y-2">
+              <ul className="mt-3 space-y-1.5">
                 {milestone.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                  <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground leading-snug">
                     <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0" />
                     {bullet}
                   </li>
                 ))}
               </ul>
               
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex flex-wrap gap-1.5 mt-3">
                 {milestone.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-1 text-xs font-medium text-gold border border-gold/30 rounded-full bg-gold/5"
+                    className="px-2 py-0.5 text-xs font-medium text-gold border border-gold/30 rounded-full bg-gold/5"
                   >
                     {tag}
                   </span>
