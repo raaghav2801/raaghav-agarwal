@@ -19,6 +19,7 @@ interface CaseStudy {
   toolkit: string[];
   metrics?: { label: string; value: string; icon: React.ElementType }[];
   externalLink?: string | null; // null = internal/confidential, undefined = no link shown
+  links?: { label: string; url: string }[];
 }
 
 const caseStudies: CaseStudy[] = [
