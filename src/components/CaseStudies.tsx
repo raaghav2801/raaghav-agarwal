@@ -54,6 +54,11 @@ const caseStudies: CaseStudy[] = [
       { label: 'Page Views', value: '46.1K', icon: Zap },
     ],
     externalLink: 'https://auctions.islisb.org',
+    links: [
+      { label: 'Auctions Portal', url: 'https://auctions.islisb.org' },
+      { label: 'Scorecard Portal', url: 'https://scorecard.islisb.org' },
+      { label: 'Live Auctions (YouTube)', url: 'https://www.youtube.com/watch?v=rxVYU7UHPeI&list=PLfMKrLoWREzrQBijHu6MSgwx__gRvyUzg' },
+    ],
   },
   {
     id: 'autodev',
