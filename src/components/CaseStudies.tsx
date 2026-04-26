@@ -23,6 +23,38 @@ interface CaseStudy {
 
 const caseStudies: CaseStudy[] = [
   {
+    id: 'isl-portals',
+    title: 'Auctions Portal & Scorecard Portal – ISB Super League',
+    subtitle: 'E2E auctions and live scorecard portals for ISL',
+    type: 'flagship',
+    tags: ['0→1', 'Platform', 'Consumer'],
+    preview: 'Built an E2E auctions and scorecard portal defining use cases for both admin and spectator side ensuring seamlessness for all views for ISL.',
+    problem: 'ISL needed a seamless digital experience for both admins running the auction and spectators following teams, players, and live scores across the tournament.',
+    users: 'ISL admins managing auctions and match scoring, plus students and spectators tracking teams, bids, and live scorecards.',
+    constraints: 'Tight tournament timeline, real-time data needs across auctions and live matches, and a single product had to serve both admin workflows and spectator views.',
+    whatIDid: [
+      'Defined end-to-end use cases for both admin and spectator sides of the auctions and scorecard portals',
+      'Designed seamless flows ensuring all views worked consistently across roles and devices for ISL',
+      'Shipped the auctions portal used live on auction day, reaching 1.1K unique visitors',
+      'Shipped the scorecard portal used through the tournament, reaching 9.6K unique visitors and 46.1K page views',
+      'Coordinated with the live YouTube broadcast of the auctions to keep on-screen data in sync with the portal',
+    ],
+    artifacts: [],
+    outcomes: [
+      { label: 'Auctions Unique Visitors', value: '1.1K' },
+      { label: 'Scorecard Unique Visitors', value: '9.6K' },
+      { label: 'Scorecard Page Views', value: '46.1K' },
+    ],
+    nextSteps: [],
+    toolkit: ['Product Definition', 'Use Case Mapping', 'Admin + Consumer UX', 'Live Ops', 'Analytics'],
+    metrics: [
+      { label: 'Auction Visitors', value: '1.1K', icon: Users },
+      { label: 'Scorecard Visitors', value: '9.6K', icon: TrendingUp },
+      { label: 'Page Views', value: '46.1K', icon: Zap },
+    ],
+    externalLink: 'https://auctions.islisb.org',
+  },
+  {
     id: 'autodev',
     title: 'AutoDev',
     subtitle: 'Low-code automation builder for non-technical users',
