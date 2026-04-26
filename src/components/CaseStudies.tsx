@@ -19,6 +19,7 @@ interface CaseStudy {
   toolkit: string[];
   metrics?: { label: string; value: string; icon: React.ElementType }[];
   externalLink?: string | null; // null = internal/confidential, undefined = no link shown
+  links?: { label: string; url: string }[];
 }
 
 const caseStudies: CaseStudy[] = [
@@ -53,6 +54,11 @@ const caseStudies: CaseStudy[] = [
       { label: 'Page Views', value: '46.1K', icon: Zap },
     ],
     externalLink: 'https://auctions.islisb.org',
+    links: [
+      { label: 'Auctions Portal', url: 'https://auctions.islisb.org' },
+      { label: 'Scorecard Portal', url: 'https://scorecard.islisb.org' },
+      { label: 'Live Auctions (YouTube)', url: 'https://www.youtube.com/watch?v=rxVYU7UHPeI&list=PLfMKrLoWREzrQBijHu6MSgwx__gRvyUzg' },
+    ],
   },
   {
     id: 'autodev',
@@ -349,6 +355,31 @@ const CaseStudyModal = ({ study, onClose }: { study: CaseStudy; onClose: () => v
             </ul>
           </div>
 
+          {/* Links */}
+          {study.links && study.links.length > 0 && (
+            <div>
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <ExternalLink className="w-5 h-5 text-primary" />
+                Links
+              </h3>
+              <ul className="space-y-2">
+                {study.links.map((link) => (
+                  <li key={link.url} className="flex items-center gap-2 flex-wrap">
+                    <ExternalLink className="w-3.5 h-3.5 text-primary/70 flex-shrink-0" />
+                    <span className="text-muted-foreground">{link.label}:</span>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary/90 hover:text-primary underline underline-offset-2 transition-colors break-all"
+                    >
+                      {link.url}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* PM Toolkit */}
           <div>
